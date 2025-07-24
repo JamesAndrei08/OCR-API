@@ -2,11 +2,13 @@ from fastapi import FastAPI, UploadFile, File
 from PIL import Image
 import google.generativeai as genai
 import io
+import os
 
 app = FastAPI()
 
 # Configure Gemini
-genai.configure(api_key="AIzaSyC3Bdoy3DIDhWES760c0pm6lKm-0rHZIng")
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 @app.post("/api/ocr")
 async def ocr(image: UploadFile = File(...)):
