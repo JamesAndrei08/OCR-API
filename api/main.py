@@ -18,8 +18,7 @@ app.add_middleware(
 )
 
 
-genai_api_key = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=genai_api_key)
+genai.configure(api_key="AIzaSyDof_h470pTXw9njYrbsXXoa9s6T5RjU-Q")
 
 @app.get("/")
 async def root():
