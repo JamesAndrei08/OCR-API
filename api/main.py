@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 import google.generativeai as genai
 import io
@@ -6,7 +7,15 @@ import os
 
 app = FastAPI()
 
-# Configure Gemini
+
+# ✅ CORS Middleware (add this block)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://educart-marketplace.vercel.app/register"],  # Or your frontend URL: ["https://educart.vercel.app"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 genai.configure(api_key="AIzaSyC3Bdoy3DIDhWES760c0pm6lKm-0rHZIng")
 
