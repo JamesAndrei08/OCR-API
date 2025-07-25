@@ -11,7 +11,7 @@ app = FastAPI()
 # ✅ CORS Middleware (add this block)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://educart-marketplace.vercel.app/register"],  # Or your frontend URL: ["https://educart.vercel.app"]
+    allow_origins=["https://educart-marketplace.vercel.app"],  # Or your frontend URL: ["https://educart.vercel.app"]
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
