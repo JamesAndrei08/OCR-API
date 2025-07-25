@@ -8,7 +8,11 @@ app = FastAPI()
 
 # Configure Gemini
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key="AIzaSyC3Bdoy3DIDhWES760c0pm6lKm-0rHZIng")
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Gemini OCR API"}
 
 @app.post("/api/ocr")
 async def ocr(image: UploadFile = File(...)):
