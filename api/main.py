@@ -33,8 +33,14 @@ async def ocr(image: UploadFile = File(...)):
     # Use Gemini Vision model
     model = genai.GenerativeModel("gemini-2.5-flash")
     response = model.generate_content([
-        "Extract the full name from this image and just return the name",
+        "If this image is a valid ID (e.g., government-issued or student ID), extract and return ONLY the full name from it.",
+        "If it is not an ID, just return this exact message: 'This is not an ID.'",
         image
     ])
 
-    return {"Name": response.text}
+    text_response = response.text.strip()
+
+    if "This is not an ID" in text_response:
+        return {"Error": "This is not an ID."}
+    else:
+        return {"Name": text_response}
