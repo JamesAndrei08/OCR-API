@@ -8,7 +8,7 @@ import os
 app = FastAPI()
 
 
-# ✅ CORS Middleware (add this block)
+# CORS Middleware 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://educart-marketplace.vercel.app", "http://localhost:3000"],  # Or your frontend URL: ["https://educart.vercel.app"]
@@ -30,10 +30,10 @@ async def ocr(image: UploadFile = File(...)):
     image_bytes = await image.read()
     image = Image.open(io.BytesIO(image_bytes))
 
-    # Use Gemini Vision model
+   
     model = genai.GenerativeModel("gemini-2.5-flash")
     response = model.generate_content([
-        "Task: Analyze the image and extract the full name if it is a valid ID (e.g., government-issued ID, student ID). Rules: Return only the full name if an ID is detected, The name must follow this format: Include the full first name (including second given name, if present), Include the last name, f a middle name is present (whether fully spelled or abbreviated), include only its first letter followed by a period (e.g., A.), Do not include the full middle name — always reduce it to its initial, If the image is not an ID, return exactly: This is not an ID.",
+        "If this image is a valid ID (e.g., government-issued or student ID), extract and return ONLY the full name from it. Disregard the middle name or middle initial—return only the first name (including second given name if present) and last name. If it is not an ID, just return this exact message: 'This is not an ID.'",
         image
     ])
 
